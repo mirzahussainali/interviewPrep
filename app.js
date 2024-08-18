@@ -1,66 +1,58 @@
-// var vs let vs const
-// Scope(scope is certain region of program where variables exist can be recognised)
-// types of scopes(Global block and functional scope)
+// var let and const
+// scope (scope is certain region of program where defined variable exist and can be recognised and beyond that cannot be recognised)
 
-// function name(){
-// example of function scope
-// }
-// var is functional scope let and const are block scope
-// { block scope}
+{
+  const a = 5;
+}
+// console.log(a); // reference error because a is declared using let
 
-// var a = 5 (Global scope)
+// variable shadowing
+// in javascript introduction of let and const in es6 along with block scope allows variable shadowing
 
-// variable shadowing (while shadowing of variables it should not cross boundary of scope)
+function test() {
+  let a = "hello";
+  if (true) {
+    let a = "Hi";
+    console.log(a);
+  }
+  console.log(a);
+}
 
-// function test() {
-//   let a = "Hello";
+test();
 
-//   if (true) {
-//     let a = "Hi";
-//     console.log(a);
-//   }
-//   console.log(a);
-// }
+// we can shadow var variable using let but cannot do same else will be called illegal shadowing
+// shadowing let with var is called illegal shadowing
 
-// test();
+// let and const cannot be redeclared in same scope but var can be redeclared as many times
 
-// illegal shadowing (we can shadow var variable with let or const but cant do opposite if we do so it is called illegal shadowing);
+// declaration without initialization
 
-// example of shadowing
-// function test(){
-//     var a = "hello";
-//     let b = 'Bye';
+// let and var can be used with out initialization but we need to initialize with const
 
-//     if(true){
-//         let a = "hi";
-//         var b = 'GoodBye'
-//     }
-// }
-// test()
+// hoisting
 
-// -----Declaration and initialization
-// Declaration of variables(let and const are block scoped and cannot be redeclared)
-// const a (const varaible unless initailizes cannot be declared)
-//  reinitialisation can be done with let and var but cannot be done with const
-// exp : const a = 6; a=7 (cannot be done in const variable)
+// in hoisting execution context declares variables and function declarations at top of code during memory creation phase and when execution happens it checks the variable exists during creation phase
+console.log(count);
+var count = 1;
 
-// Hoisting
-// during the memory creation phase of execution context variables and function declaration are moved to top by js engine
+// let and const variables are hoisted in temporal dead zone
 
-//  var variable are hoisted
-
-// console.log(count); (undefined keyword is printed in console)
-// var count;
-
-// let and const variables are also hoisted but in temporal dead zone
-// Temporal deadzone is time between declaration and initialsation of let and const variables
-// console.log(count); (cannot access count before initialzation - Reference error)
-// let count = 1;
+// temporal deadzone is time between declaration and initialization of let and const variable
 
 function abc() {
   console.log(a);
 
-  var a = 10;
+  var a = 20;
 }
 
-abc();
+abc(); // undefined
+
+function bcc() {
+  console.log(a, b, c);
+
+  var a = 1;
+  let b = 5;
+  const c = 10;
+}
+
+bcc(); // reference error
